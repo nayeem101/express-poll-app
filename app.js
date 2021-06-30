@@ -63,31 +63,28 @@ app.use((req, res, next) => {
   res.status(404).render("err_404");
 });
 
-//port
-const PORT = 4500 || process.env.PORT;
 const DB_HOST =
   process.env.NODE_ENV !== "production"
     ? process.env.DB_HOST_LOCAL
     : process.env.DB_HOST_MONGO_ATLAS;
 
-mongoose
-  .connect(DB_HOST, {
-    //authSource: "admin",
-    //user: process.env.DB_USER,
-    //pass: process.env.DB_PASS,
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("mongodb connected");
-    app.listen(PORT, () => {
-      console.log(`app is runnning on: http://localhost:${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.log("error" + err);
-  });
+//Connect to Mongo
+mongoose.connect(DB_HOST, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+});
 
+const db = mongoose.connection;
+//error handle
+db.on("error", (err) => {
+  console.log("db error:", err);
+});
+
+db.once("open", () => {
+  console.log("Database Connection Established");
+});
+
+module.exports = app;
 //TODO : enhance form validation
