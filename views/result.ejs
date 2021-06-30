@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Express poll-- <%= poll.title %></title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body class="bg-info">
+    <% if (postCreator) { %> <%- include('nav.ejs',{username}) %> <% }else { %>
+    <nav class="navbar navbar-dark bg-primary justify-content-center">
+      <a class="navbar-brand" href="/">Express Poll App</a>
+    </nav>
+    <% } %>
+
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-6 offset-md-3 my-2">
+          <div class="card card-body shadow">
+            <h5>Poll: <%= poll.title %></h5>
+            <div class="card card-body"><%= poll.description %></div>
+
+            <h5 class="mt-2">
+              Total Votes:
+              <span class="badge badge-primary"><%= poll.totalVote %></span>
+            </h5>
+
+            <% if (new Date().getTime() >= poll.expiresIn) { %>
+            <p class="text-primary">This poll is completed</p>
+            <% } else { %>
+            <p class="text-primary">
+              This poll expires in: <%= new
+              Date(poll.expiresIn).toLocaleString() %>
+            </p>
+            <% } %>
+
+            <div class="my-1">
+              <h5>Result:</h5>
+              <ul class="list-group">
+                <% for (let res of results) {%>
+                <li class="list-group-item">
+                  <%= res.name -%> --->
+                  <strong> <%= res.percentage %>% </strong>
+                </li>
+                <% } %>
+              </ul>
+
+              <p class="text-info">
+                <%= typeof message != 'undefined'? message : 'Already Submitted'
+                -%>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

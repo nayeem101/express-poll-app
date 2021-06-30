@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      <%= typeof title !== 'undefined' ? title : "Expres Poll App"%>
+    </title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body class="bg-info">
+    <nav class="bg-dark text-center p-2 m-auto">
+      <h2 class="text-white">Pool System Express App</h2>
+    </nav>
+    <div class="container p-2 my-3">
+      <h4 class="text-center text-warning">Log In to Create a new Poll</h4>
+      <div class="card card-body w-50 m-auto">
+        <% if (msg) { %>
+        <p class="text-secondary"><%= msg %></p>
+        <% } %>
+        <form action="/user/login" method="POST">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+            <small id="emailHelp" class="form-text text-muted"
+              >We'll never share your email with anyone else.</small
+            >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              id="exampleInputPassword1"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <div class="my-2">
+            <span>Don't have an account yet?</span>
+            <a href="/user/register">Register</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

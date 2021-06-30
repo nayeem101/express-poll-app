@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Express Poll - <%=title-%></title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <style>
+      .mylist .delete {
+        text-decoration: none;
+        display: none;
+      }
+
+      .mylist:hover .delete {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body class="bg-info">
+    <%- include('nav.ejs',{username}) %>
+
+    <div class="container">
+      <div class="col-md-6 offset-md-3 my-5">
+        <div class="card card-body">
+          <h5>My Polls</h5>
+          <% if (polls.length == 0) { %>
+          <p class="text-info">
+            No Polls Available <a href="/create">Create</a>
+          </p>
+          <% } %>
+          <ul class="list-group">
+            <% for(let p of polls) {%>
+            <li class="list-group-item">
+              <div class="d-flex justify-content-between mylist">
+                <a href="/polls/<%= p._id %>"> <%= p.title %> </a>
+                <a class="delete" href="/user/delete/<%= p._id %>">
+                  <i class="fa fa-remove"></i>
+                  Delete
+                </a>
+              </div>
+            </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

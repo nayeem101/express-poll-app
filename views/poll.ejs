@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Express poll-- <%= poll.title %> - <%= title -%></title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body class="bg-info">
+    <% if (postCreator) { %> <%- include('nav.ejs',{username}) %> <% } %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3 my-2">
+          <div class="card card-body shadow">
+            <h4><%= poll.title %></h5>
+            <div class="card card-body"><%= poll.description %></div>
+            
+            <h5 class='mt-2'>Total Votes: <span class="badge badge-primary"><%= poll.totalVote %></span></h5>
+
+            <p class="text-primary">
+              This poll expires in: <%= new
+              Date(poll.expiresIn).toLocaleString() %>
+            </p>
+
+            <div class="my-1">
+              <h5>Result:</h5>
+              <ul class="list-group">
+                <% for (let res of results) {%>
+                <li class="list-group-item">
+                  <%= res.name -%> --->
+                  <strong> <%= res.percentage %>% </strong>
+                </li>
+                <% } %>
+              </ul>
+            </div>
+
+            <% if (postCreator) { %>
+            <div class="mt-4">
+              <h5>Opinions:</h5>
+              <form action="/user/edit/<%= poll._id %>" method="GET">
+                <% for( let option of poll.options ) { %>
+                <div class="custom-control custom-radio">
+                  <input
+                    type="radio"
+                    name="option"
+                    id="<%= option._id %>"
+                    class="custom-control-input"
+                    value="<%= option.id %>"
+                  />
+                  <label for="<%= option._id %>" class="custom-control-label"
+                    ><%= option.name %></label
+                  >
+                </div>
+                <% } %>
+                <input
+                  type="submit"
+                  value="Edit poll"
+                  class="my-2 btn btn-primary"
+                />
+              </form>
+            </div>
+            <% } else {%>
+            <div class="my-4">
+              <h5>Your Opinion:</h5>
+              <form action="/polls/<%= poll._id %> " method="POST">
+                <% for( let option of poll.options ) { %>
+                <div class="custom-control custom-radio">
+                  <input
+                    type="radio"
+                    name="option"
+                    id="<%= option._id %>"
+                    class="custom-control-input"
+                    value="<%= option.id %>"
+                  />
+                  <label for="<%= option._id %>" class="custom-control-label"
+                    ><%= option.name %></label
+                  >
+                </div>
+                <% } %>
+                <input
+                  type="submit"
+                  value="Submit Your Opinion"
+                  class="my-2 btn btn-primary"
+                />
+              </form>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Express Poll App - <%= title %></title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body class="bg-info">
+    <nav class="bg-dark text-center p-2 m-auto">
+      <h2 class="text-white">Pool System Express App</h2>
+    </nav>
+    <div class="container p-2 my-3">
+      <h4 class="text-center text-warning my-1">Register</h4>
+      <div class="card card-body w-50 m-auto">
+        <form action="/user/register" method="POST">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Username</label>
+            <input
+              type="text"
+              name="username"
+              class="form-control"
+              id="user"
+              aria-describedby="user"
+            />
+            <small id="user" class="form-text text-muted">
+              username must be unique
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              aria-describedby="emailHelp"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              id="password"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Confirm Password</label>
+            <input type="password" class="form-control" id="password" />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <div class="my-2">
+            <span>Already have an account?</span>
+            <a href="/user/login">Login</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
