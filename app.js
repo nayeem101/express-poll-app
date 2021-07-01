@@ -3,6 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const path = require("path");
 
 const auth = require("./controller/auth");
 
@@ -26,6 +27,7 @@ const userRoute = require("./controller/userController");
 app.set("view engine", "ejs");
 
 app.use(morgan("dev"));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());

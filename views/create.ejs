@@ -1,117 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Express Poll -- Create new poll</title>
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        />
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-        />
-    </head>
-    <body class="bg-info">
-        <%- include('nav.ejs',{username}) %>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 offset-md-3 my-2">
-                    <div class="card card-body">
-                        <h4>Create A New Poll</h4>
-                        <form action="/create" method="POST">
-                            <div class="form-group">
-                                <label for="title">Enter Title</label>
-                                <input
-                                    type="text"
-                                    name="title"
-                                    id="title"
-                                    class="form-control"
-                                    required
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label for="desc">Enter Description</label>
-                                <textarea
-                                    name="description"
-                                    id="desc"
-                                    class="form-control"
-                                    required
-                                ></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect1">
-                                    Poll Expires In
-                                </label>
-                                <select
-                                    class="form-control"
-                                    id="myselect"
-                                    name="days"
-                                >
-                                    <option name="days" value="1" selected>
-                                        One day
-                                    </option>
-                                    <option name="days" value="2">
-                                        Two days
-                                    </option>
-                                    <option name="days" value="3">
-                                        Three days
-                                    </option>
-                                    <option name="days" value="3">
-                                        Four days
-                                    </option>
-                                </select>
-                            </div>
-                            <div id="options">
-                                <p>Enter Your Options</p>
-                                <div class="form-group">
-                                    <input
-                                        type="text"
-                                        name="options"
-                                        class="form-control myinput"
-                                        placeholder="Option 1"
-                                        required
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <input
-                                        type="text"
-                                        name="options"
-                                        class="form-control"
-                                        placeholder="Option 2"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <button class="btn btn-info btn-sm" id="addOption">
-                                Add More Options
-                            </button>
-                            <input
-                                type="submit"
-                                class="my-3 btn btn-primary w-100"
-                                value="Create poll"
-                            />
-                        </form>
-                    </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Express Poll -- Create new poll</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <style>
+      .mycard {
+        width: 60%;
+      }
+
+      @media screen and (max-width: 991px) {
+        .mycard {
+          width: 80%;
+        }
+      }
+      @media screen and (max-width: 768px) {
+        .mycard {
+          width: 95%;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-info">
+    <%- include('nav.ejs',{username}) %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3 my-2">
+          <div class="card card-body mycard">
+            <h4>Create A New Poll</h4>
+            <form action="/create" method="POST">
+              <div class="form-group">
+                <label for="title">Enter Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="desc">Enter Description</label>
+                <textarea
+                  name="description"
+                  id="desc"
+                  class="form-control"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlSelect1"> Poll Expires In </label>
+                <select class="form-control" id="myselect" name="days">
+                  <option name="days" value="1" selected>One day</option>
+                  <option name="days" value="2">Two days</option>
+                  <option name="days" value="3">Three days</option>
+                  <option name="days" value="3">Four days</option>
+                </select>
+              </div>
+              <div id="options">
+                <p>Enter Your Options</p>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="options"
+                    class="form-control myinput"
+                    placeholder="Option 1"
+                    required
+                  />
                 </div>
-            </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="options"
+                    class="form-control"
+                    placeholder="Option 2"
+                    required
+                  />
+                </div>
+              </div>
+              <button class="btn btn-info btn-sm" id="addOption">
+                Add More Options
+              </button>
+              <input
+                type="submit"
+                class="my-3 btn btn-primary w-100"
+                value="Create poll"
+              />
+            </form>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <script>
-            //add new option
-            let options = document.getElementById("options");
-            let addOption = document.getElementById("addOption");
-            let curOptNum = document.querySelectorAll(".myinput").length + 1;
-            addOption.addEventListener("click", (event) => {
-                event.preventDefault();
-                let option = createNewOpton();
-                options.appendChild(option);
-            });
+    <script>
+      //add new option
+      let options = document.getElementById("options");
+      let addOption = document.getElementById("addOption");
+      let curOptNum = document.querySelectorAll(".myinput").length + 1;
+      addOption.addEventListener("click", (event) => {
+        event.preventDefault();
+        let option = createNewOpton();
+        options.appendChild(option);
+      });
 
-            function createNewOpton() {
-                let div = document.createElement("div");
-                let input = `<div class="input-group">
+      function createNewOpton() {
+        let div = document.createElement("div");
+        let input = `<div class="input-group">
                               <input
                                  type="text"
                                  name="options"
@@ -119,10 +125,10 @@
                                  placeholder="Option ${curOptNum++}"
                                  required
                               />`;
-                div.className = "form-group";
-                div.innerHTML = input;
-                return div;
-            }
-        </script>
-    </body>
+        div.className = "form-group";
+        div.innerHTML = input;
+        return div;
+      }
+    </script>
+  </body>
 </html>

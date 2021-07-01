@@ -6,10 +6,30 @@
     <title>
       <%= typeof title !== 'undefined' ? title : "Expres Poll App"%>
     </title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
+
+    <style>
+      .mycard {
+        width: 60%;
+      }
+
+      @media screen and (max-width: 991px) {
+        .mycard {
+          width: 80%;
+        }
+      }
+      @media screen and (max-width: 768px) {
+        .mycard {
+          width: 95%;
+        }
+      }
+    </style>
   </head>
   <body class="bg-info">
     <nav class="bg-dark text-center p-2 m-auto">
@@ -17,7 +37,7 @@
     </nav>
     <div class="container p-2 my-3">
       <h4 class="text-center text-warning">Log In to Create a new Poll</h4>
-      <div class="card card-body w-50 m-auto">
+      <div class="card card-body m-auto mycard">
         <% if (msg) { %>
         <p class="text-secondary"><%= msg %></p>
         <% } %>
